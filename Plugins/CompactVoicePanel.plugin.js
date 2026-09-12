@@ -4,6 +4,8 @@
  * @authorId 496360025099337728
  * @version 1.0.0
  * @description Hides the voice panel buttons.
+ * @source https://github.com/pond-studio/BetterDiscord-Addons/blob/main/Plugins/CompactVoicePanel.plugin.js
+ * @updateUrl https://raw.githubusercontent.com/pond-studio/BetterDiscord-Addons/main/Plugins/CompactVoicePanel.plugin.js
  */
 
 const css = `

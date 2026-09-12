@@ -4,6 +4,8 @@
  * @authorId 496360025099337728
  * @version 1.0.0
  * @description Clicking the sidebar handle toggles the sidebar visibility.
+ * @source https://github.com/pond-studio/BetterDiscord-Addons/blob/main/Plugins/toggleChannelList.js
+ * @updateUrl https://raw.githubusercontent.com/pond-studio/BetterDiscord-Addons/main/Plugins/toggleChannelList.js
  */
 
 module.exports = class SidebarClickToggle {

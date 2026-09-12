@@ -4,6 +4,8 @@
  * @authorId 496360025099337728
  * @version 1.0.0
  * @description Toggleable options to hide various buttons around the Discord UI
+ * @source https://github.com/pond-studio/BetterDiscord-Addons/blob/main/Plugins/HideButtons.plugin.js
+ * @updateUrl https://raw.githubusercontent.com/pond-studio/BetterDiscord-Addons/main/Plugins/HideButtons.plugin.js
  */
 
 module.exports = class HideButtons {
