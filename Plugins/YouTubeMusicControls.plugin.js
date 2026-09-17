@@ -2,7 +2,7 @@
  * @name YouTubeMusicControls
  * @author voyhel
  * @authorId 496360025099337728
- * @version 1.0.1
+ * @version 1.0.2
  * @description Adds a Control Panel above the account panel for the pear-desktop app
  * @source https://github.com/pond-studio/BetterDiscord-Addons/blob/main/Plugins/YouTubeMusicControls.plugin.js
  * @updateUrl https://raw.githubusercontent.com/pond-studio/BetterDiscord-Addons/main/Plugins/YouTubeMusicControls.plugin.js
@@ -718,6 +718,7 @@ module.exports = class YouTubeMusicControls {
                     {
                         size: Button.Sizes.SMALL,
                         look: Button.Looks.OUTLINED,
+                        className: 'ytmc-auth-btn-muted',
                         onClick: doTest,
                     },
                     'Test connection',
@@ -728,6 +729,7 @@ module.exports = class YouTubeMusicControls {
                         size: Button.Sizes.SMALL,
                         look: Button.Looks.OUTLINED,
                         color: Button.Colors.RED,
+                        className: 'ytmc-auth-btn-muted',
                         onClick: doClear,
                     },
                     'Clear token',
@@ -943,6 +945,7 @@ module.exports = class YouTubeMusicControls {
 
 			.ytmc-auth-row { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 8px; }
 			.ytmc-auth-hint { font-size: 12px; color: var(--text-muted); margin-right: auto; }
+			.ytmc-auth-btn-muted { background-color: #373544 !important; }
 		`;
     }
 };
