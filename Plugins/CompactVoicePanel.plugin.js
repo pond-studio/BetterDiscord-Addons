@@ -138,7 +138,11 @@ module.exports = class CompactVoicePanel {
                 (b.getAttribute('aria-label') || '') +
                 ' ' +
                 (described ? described.textContent : '');
-            if (/share your screen|go live|stop streaming|stop sharing/i.test(label)) {
+            if (
+                /share your screen|go live|stop streaming|stop sharing/i.test(
+                    label,
+                )
+            ) {
                 return { btn: b, label };
             }
         }
