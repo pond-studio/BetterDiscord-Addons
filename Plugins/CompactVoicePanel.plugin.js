@@ -17,6 +17,11 @@ const css = `
 		margin: 0 !important;
 		padding: 0 !important;
 	}
+
+	.hb-stream-btn.hb-stream-btn-active {
+		background-color: var(--status-positive-background, #23a55a) !important;
+		color: #fff !important;
+	}
 `;
 
 const SCREEN_SHARE_SVG = `<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 4h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-5v2h2a1 1 0 1 1 0 2H7a1 1 0 1 1 0-2h2v-2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Zm8 3a1 1 0 0 1 .7.3l3 3a1 1 0 0 1-1.4 1.4L13 11.4V15a1 1 0 1 1-2 0v-3.6l-1.3 1.3a1 1 0 0 1-1.4-1.4l3-3A1 1 0 0 1 12 7Z"/></svg>`;
@@ -36,13 +41,17 @@ module.exports = class CompactVoicePanel {
                 this._voiceRaf = null;
                 this.injectStreamButton();
                 this.parkActionButtons();
+                this.updateStreamButtonState();
             });
         });
         this._voiceObserver.observe(document.body, {
             childList: true,
             subtree: true,
+            attributes: true,
+            attributeFilter: ['aria-label', 'aria-describedby', 'class'],
         });
         this.injectStreamButton();
+        this.updateStreamButtonState();
     }
 
     stop() {
@@ -119,9 +128,7 @@ module.exports = class CompactVoicePanel {
         this.unparkActionButtons();
     }
 
-    triggerShareScreen() {
-        this.parkActionButtons();
-        let target = null;
+    findShareScreenButton() {
         for (const b of document.querySelectorAll(
             '[class*="actionButtons_e131a9"] button',
         )) {
@@ -131,15 +138,31 @@ module.exports = class CompactVoicePanel {
                 (b.getAttribute('aria-label') || '') +
                 ' ' +
                 (described ? described.textContent : '');
-            if (/share your screen|go live|stop streaming/i.test(label)) {
-                target = b;
-                break;
+            if (/share your screen|go live|stop streaming|stop sharing/i.test(label)) {
+                return { btn: b, label };
             }
         }
-        if (target) target.click();
+        return null;
+    }
+
+    updateStreamButtonState() {
+        const streamBtn = document.querySelector('.hb-stream-btn');
+        if (!streamBtn) return;
+        const found = this.findShareScreenButton();
+        const active = !!(
+            found && /stop streaming|stop sharing/i.test(found.label)
+        );
+        streamBtn.classList.toggle('hb-stream-btn-active', active);
+    }
+
+    triggerShareScreen() {
+        this.parkActionButtons();
+        const found = this.findShareScreenButton();
+        if (found) found.btn.click();
         else
             BdApi.UI.showToast('Could not find the Screen Share button', {
                 type: 'error',
             });
+        this.updateStreamButtonState();
     }
 };
