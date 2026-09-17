@@ -2,7 +2,7 @@
  * @name YouTubeMusicControls
  * @author voyhel
  * @authorId 496360025099337728
- * @version 1.0.0
+ * @version 1.0.1
  * @description Adds a Control Panel above the account panel for the pear-desktop app
  * @source https://github.com/pond-studio/BetterDiscord-Addons/blob/main/Plugins/YouTubeMusicControls.plugin.js
  * @updateUrl https://raw.githubusercontent.com/pond-studio/BetterDiscord-Addons/main/Plugins/YouTubeMusicControls.plugin.js
@@ -24,7 +24,6 @@ module.exports = class YouTubeMusicControls {
             port: 26538,
             accessToken: '',
             addTimeline: true,
-            showButtons: true,
             buttons: {
                 like: true,
                 dislike: true,
@@ -497,7 +496,6 @@ module.exports = class YouTubeMusicControls {
             s.shuffle,
             JSON.stringify(this.settings.buttons),
             this.settings.addTimeline,
-            this.settings.showButtons,
         ]);
     }
 
@@ -539,9 +537,7 @@ module.exports = class YouTubeMusicControls {
                 ? this.icon('repeatOne')
                 : this.icon('repeat');
 
-        const buttonsRow = !this.settings.showButtons
-            ? ''
-            : `
+        const buttonsRow = `
 			<div class="ytmc-buttons">
 				${btn('dislike', 'Dislike', this.icon('thumbDown'), this.state.liked === 'DISLIKE' ? 'ytmc-active' : '')}
 				${btn('previous', 'Previous', this.icon('previous'))}
@@ -792,13 +788,6 @@ module.exports = class YouTubeMusicControls {
                 name: 'Show timeline',
                 note: 'Progress bar with seek support',
                 value: s.addTimeline,
-            },
-            {
-                type: 'switch',
-                id: 'showButtons',
-                name: 'Show control buttons',
-                note: 'Master switch — turn off to hide the entire button row',
-                value: s.showButtons,
             },
             {
                 type: 'category',
